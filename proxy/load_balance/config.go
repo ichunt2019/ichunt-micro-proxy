@@ -3,7 +3,7 @@ package load_balance
 import (
 	"context"
 	"fmt"
-	"ichunt-micro/registry"
+	"github.com/ichunt2019/ichunt-micro-registry/registry"
 	"sync"
 	"sync/atomic"
 )

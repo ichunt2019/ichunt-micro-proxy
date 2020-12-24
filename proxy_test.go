@@ -1,10 +1,12 @@
 package ichunt_micro_proxy
 
 import (
+	"context"
 	"fmt"
 	"github.com/ichunt2019/ichunt-micro-proxy/proxy/load_balance"
 	"github.com/ichunt2019/ichunt-micro-registry/registry"
-	//_ "github.com/ichunt2019/ichunt-micro-registry/etcd"
+	_ "github.com/ichunt2019/ichunt-micro-registry/registry/etcd"
+	"log"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -74,7 +76,6 @@ func register(){
 }
 
 func (r *RealServer) Run() {
-	log.Println("Starting httpserver at " + r.Addr)
 	mux := http.NewServeMux()
 	mux.HandleFunc("/test", r.HelloHandler)
 	mux.HandleFunc("/base/error", r.ErrorHandler)
@@ -84,7 +85,7 @@ func (r *RealServer) Run() {
 		Handler:      mux,
 	}
 	go func() {
-		log.Fatal(server.ListenAndServe())
+		log.Println(server.ListenAndServe())
 	}()
 }
 
